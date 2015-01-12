@@ -11,6 +11,11 @@ var App = Ember.Application.extend({
   Resolver: Resolver
 });
 
+// Allow links to specify their `type`
+Ember.LinkView.reopen({
+  attributeBindings: "type"
+});
+
 loadInitializers(App, config.modulePrefix);
 
 export default App;

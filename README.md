@@ -1,7 +1,17 @@
-# Peeps-ember-orbit
+# Ember-Orbit Client for "Peeps"
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a client app illustrating the use of
+[ember-orbit](https://github.com/orbitjs/ember-orbit/).
+
+It communicates with a [JSON API](http://jsonapi.org/) backend provided by
+[Peeps](https://github.com/cerebris/peeps-uuids), a Rails server that was
+written using [JSONAPI::Resources](https://github.com/cerebris/jsonapi-resources).
+
+This client also uses Orbit to synchronize its memory source with a local
+storage source so that it can work offline.
+
+> The offline synchronization features are not yet complete and require further
+work in this project and Orbit itself.
 
 ## Prerequisites
 
@@ -22,7 +32,7 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
-* `ember server`
+* `ember server --proxy http://127.0.0.1:3000`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ### Code Generators
@@ -50,4 +60,3 @@ Specify what it takes to deploy your app.
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
