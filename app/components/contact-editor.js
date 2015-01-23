@@ -5,23 +5,24 @@ export default Ember.Component.extend({
   contact: null,
   isNew: Ember.computed.none('model'),
 
-  init: function() {
-    var _this = this;
+  configure: function() {
+    if (this.get('store')) {
+      var _this = this;
 
-    this._super.apply(this, arguments);
-    this.storeContext = this.get('store').createContext();
+      this.storeContext = this.get('store').createContext();
 
-    if (this.get('isNew')) {
-      this.storeContext.add('contact').then(function(contact) {
-        _this.set('contact', contact);
-      });
+      if (this.get('isNew')) {
+        this.storeContext.add('contact').then(function(contact) {
+          _this.set('contact', contact);
+        });
 
-    } else {
-      this.storeContext.find('contact', this.get('model.id')).then(function(contact) {
-        _this.set('contact', contact);
-      });
+      } else {
+        this.storeContext.find('contact', this.get('model.id')).then(function(contact) {
+          _this.set('contact', contact);
+        });
+      }
     }
-  },
+  }.on('init'),
 
   didInsertElement: function() {
     this.$('input:first').focus();
