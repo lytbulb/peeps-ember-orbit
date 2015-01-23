@@ -168,6 +168,10 @@ function connectSources(container) {
   var mainToApiConnector = new Orbit.TransformConnector(main, api, { blocking: false });
   var apiToMainConnector = new Orbit.TransformConnector(api, main);
 
+  mainToLocalConnector.id = 'mainToLocal';
+  mainToApiConnector.id = 'mainToApi';
+  apiToMainConnector.id = 'apiToMain';
+
   main.on('didTransform', function(ops, inverse) {
     console.log('main.didTransform', ops, inverse);
   });
