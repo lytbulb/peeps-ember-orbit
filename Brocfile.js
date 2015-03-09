@@ -34,7 +34,7 @@ app.import('bower_components/ember-orbit/ember-orbit.amd.js', {
 
 app.import('bower_components/firebase/firebase-debug.js');
 
-app.import('bower_components/orbit-firebase/build/orbit-firebase.amd.js', {
+app.import('bower_components/orbit-firebase/orbit-firebase.amd.js', {
   exports: {'orbit-firebase': ['default']}
 });
 
