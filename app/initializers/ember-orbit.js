@@ -3,6 +3,7 @@ import Orbit from 'orbit';
 import JSONAPISource from 'orbit-common/jsonapi-source';
 import JSONAPISerializer from 'orbit-common/jsonapi-serializer';
 import LocalStorageSource from 'orbit-common/local-storage-source';
+import FirebaseSource from 'orbit-firebase/firebase-source';
 import EO from 'ember-orbit';
 
 EO.Source.reopen({
@@ -133,6 +134,15 @@ var APISource = JSONAPISource.extend({
   }
 });
 
+
+
+var EO_FirebaseSource = EO.Source.extend({
+  orbitSourceClass: FirebaseSource,
+  orbitSourceOptions: {
+    firebaseRef: new Firebase("https://peeps.firebaseio.com")
+  }
+});
+
 var EO_APISource = EO.Source.extend({
   orbitSourceClass: APISource
 });
@@ -147,7 +157,7 @@ var EO_LocalStorageSource = EO.Source.extend({
 function registerSources(application) {
   application.register('schema:main', EO.Schema);
   application.register('store:main', MainStore);
-  application.register('source:api', EO_APISource);
+  application.register('source:api', EO_FirebaseSource);
   application.register('source:local', EO_LocalStorageSource);
 }
 
@@ -236,6 +246,9 @@ export default {
   name: 'injectStore',
   initialize: function(container, application) {
     Orbit.Promise = Ember.RSVP.Promise;
+    Orbit.all = Ember.RSVP.all;
+    Orbit.map = Ember.RSVP.map;
+    Orbit.resolve = Ember.RSVP.resolve;
     Orbit.ajax = Ember.$.ajax;
 
     registerSources(application);

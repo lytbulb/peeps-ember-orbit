@@ -32,6 +32,12 @@ app.import('bower_components/ember-orbit/ember-orbit.amd.js', {
   exports: {'ember-orbit': ['default']}
 });
 
+app.import('bower_components/firebase/firebase-debug.js');
+
+app.import('bower_components/orbit-firebase/build/orbit-firebase.amd.js', {
+  exports: {'orbit-firebase': ['default']}
+});
+
 // Use `app.import` to add additional libraries to the generated
 // output files.
 //
