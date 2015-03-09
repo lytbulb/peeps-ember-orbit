@@ -172,7 +172,7 @@ function connectSources(container) {
   local.id = 'local';
 
   // Initialize main source's cache from local storage
-  main.reset(Orbit.clone(local.retrieve('/')));
+  // main.reset(Orbit.clone(local.retrieve('/')));
 
   var mainToLocalConnector = new Orbit.TransformConnector(main, local);
   var mainToApiConnector = new Orbit.TransformConnector(main, api, { blocking: false });
