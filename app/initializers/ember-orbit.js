@@ -5,6 +5,7 @@ import JSONAPISerializer from 'orbit-common/jsonapi-serializer';
 import LocalStorageSource from 'orbit-common/local-storage-source';
 import FirebaseSource from 'orbit-firebase/firebase-source';
 import EO from 'ember-orbit';
+import { coalesceOperations } from 'orbit/lib/operation';
 
 EO.Source.reopen({
   clone: function(source) {
@@ -35,7 +36,7 @@ EO.Context = EO.Store.extend({
     var operations = this.get('transaction.ops');
 
     if (operations.length > 0) {
-      operations = this.coalesceOperations(operations);
+      operations = coalesceOperations(operations);
 
       console.log('commitTransaction - operations', operations);
 
@@ -43,32 +44,6 @@ EO.Context = EO.Store.extend({
     } else {
       return Ember.RSVP.Promise.resolve();
     }
-  },
-
-  coalesceOperations: function(ops) {
-    var res = [];
-    var prevOp;
-    var i, il;
-    var j, jl;
-    var op;
-
-    for (i = 0, il = ops.length; i < il; i++) {
-      op = ops[i];
-
-      // remove previous ops that are negated by this op
-      if (op.op === 'replace' || op.op === 'remove') {
-        for (jl = res.length, j = jl - 1; j >= 0; j--) {
-          prevOp = res[j];
-          if (Orbit.eq(prevOp.path, op.path)) {
-            res.removeAt(j);
-          }
-        }
-      }
-
-      res.push(op);
-    }
-
-    return res;
   }
 });
 
